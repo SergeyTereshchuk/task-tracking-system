@@ -1,0 +1,16 @@
+F:\EPAM\ExtGroup\Project\TaskTrackingSystem\DAL\bin\Debug\DAL.dll.config
+F:\EPAM\ExtGroup\Project\TaskTrackingSystem\DAL\bin\Debug\DAL.dll
+F:\EPAM\ExtGroup\Project\TaskTrackingSystem\DAL\bin\Debug\DAL.pdb
+F:\EPAM\ExtGroup\Project\TaskTrackingSystem\DAL\bin\Debug\EntityFramework.dll
+F:\EPAM\ExtGroup\Project\TaskTrackingSystem\DAL\bin\Debug\EntityFramework.SqlServer.dll
+F:\EPAM\ExtGroup\Project\TaskTrackingSystem\DAL\bin\Debug\EntityFramework.xml
+F:\EPAM\ExtGroup\Project\TaskTrackingSystem\DAL\bin\Debug\EntityFramework.SqlServer.xml
+F:\EPAM\ExtGroup\Project\TaskTrackingSystem\DAL\obj\Debug\TaskTrackingSystem.DAL.csproj.CoreCompileInputs.cache
+F:\EPAM\ExtGroup\Project\TaskTrackingSystem\DAL\obj\Debug\TaskTrackingSystem.DAL.csproj.CopyComplete
+F:\EPAM\ExtGroup\Project\TaskTrackingSystem\DAL\obj\Debug\DAL.dll
+F:\EPAM\ExtGroup\Project\TaskTrackingSystem\DAL\obj\Debug\DAL.pdb
+F:\EPAM\ExtGroup\Project\TaskTrackingSystem\DAL\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+F:\EPAM\ExtGroup\Project\TaskTrackingSystem\DAL\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+F:\EPAM\ExtGroup\Project\TaskTrackingSystem\DAL\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+F:\EPAM\ExtGroup\Project\TaskTrackingSystem\DAL\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+F:\EPAM\ExtGroup\Project\TaskTrackingSystem\DAL\obj\Debug\TaskTrackingSystem.DAL.csprojAssemblyReference.cache
