@@ -1,9 +1,6 @@
 namespace TaskTrackingSystem.DAL.DbContext
 {
-    using System;
-    using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity;
-    using System.Linq;
     using Microsoft.AspNet.Identity.EntityFramework;
     using TaskTrackingSystem.DAL.Models;
 
@@ -57,13 +54,16 @@ namespace TaskTrackingSystem.DAL.DbContext
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<WorkTask>()
-                .Property(e => e.Description)
-                .IsUnicode(false);
+                .Property(m => m.StartDate)
+                .IsOptional();
 
-            // Revise and remove later.
-            modelBuilder.Entity<WorkTask>().Property(m => m.StartDate).IsOptional();
-            modelBuilder.Entity<WorkTask>().Property(m => m.EndDate).IsOptional();
-            modelBuilder.Entity<Project>().Property(m => m.StartDate).IsOptional();
+            modelBuilder.Entity<WorkTask>()
+                .Property(m => m.EndDate)
+                .IsOptional();
+
+            modelBuilder.Entity<Project>()
+                .Property(m => m.StartDate)
+                .IsOptional();
 
             base.OnModelCreating(modelBuilder);
         }

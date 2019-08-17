@@ -1,14 +1,11 @@
 ﻿namespace TaskTrackingSystem
 {
-    using Microsoft.AspNet.Identity;
+    using System;
     using Microsoft.Owin;
-    using Microsoft.Owin.Security.Cookies;
     using Microsoft.Owin.Security.OAuth;
     using Ninject;
     using Owin;
-    using System;
     using TaskTrackingSystem.BLL.Interfaces;
-    using TaskTrackingSystem.BLL.Services;
     using TaskTrackingSystem.WebApi;
     using TaskTrackingSystem.WebApi.Providers;
 
@@ -21,7 +18,9 @@
 
         public void ConfigureOAuth(IAppBuilder app)
         {
-            var kernel = NinjectWebCommon.CreateKernel();
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+
+            IKernel kernel = NinjectWebCommon.CreateKernel();
 
             var oAuthServerOptions = new OAuthAuthorizationServerOptions()
             {

@@ -30,21 +30,21 @@
 
         PositionDTO IPositionsService.AddPosition(PositionDTO newPosition)
         {
-            var addedPosition = _unitOfWork.Positions.Create(_mapper.Map<Position>(newPosition));
+            Position addedPosition = _unitOfWork.Positions.Create(_mapper.Map<Position>(newPosition));
             _unitOfWork.Save();
             return _mapper.Map<PositionDTO>(addedPosition);
         }
 
         PositionDTO IPositionsService.RemovePosition(int id)
         {
-            var removedPosition = _unitOfWork.Positions.Delete(id);
+            Position removedPosition = _unitOfWork.Positions.Delete(id);
             _unitOfWork.Save();
             return _mapper.Map<PositionDTO>(removedPosition);
         }
 
         PositionDTO IPositionsService.UpdatePosition(PositionDTO newPosition)
         {
-            var updatedPosition = _unitOfWork.Positions.Update(_mapper.Map<Position>(newPosition));
+            Position updatedPosition = _unitOfWork.Positions.Update(_mapper.Map<Position>(newPosition));
             _unitOfWork.Save();
             return _mapper.Map<PositionDTO>(updatedPosition);
         }

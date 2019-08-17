@@ -1,12 +1,11 @@
 ﻿namespace TaskTrackingSystem.WebApi.Controllers
 {
-    using System.Collections.Generic;
     using System.Web.Http;
     using System.Web.Http.Description;
     using TaskTrackingSystem.BLL.DTO;
     using TaskTrackingSystem.BLL.Interfaces;
 
-    [Authorize]
+    [Authorize(Roles = "admin,manager")]
     [RoutePrefix("api")]
     public class PositionsController : ApiController
     {
@@ -24,7 +23,6 @@
         }
 
         [Route("positions/{id}", Name = "GetPosition")]
-        [ResponseType(typeof(PositionDTO))]
         public IHttpActionResult GetPosition(int id)
         {
             PositionDTO position = _service.GetPositionById(id);
@@ -37,7 +35,6 @@
         }
 
         [Route("positions")]
-        [ResponseType(typeof(PositionDTO))]
         public IHttpActionResult PutPosition(PositionDTO position)
         {
             if (!ModelState.IsValid)
@@ -54,7 +51,6 @@
         }
 
         [Route("positions")]
-        [ResponseType(typeof(PositionDTO))]
         public IHttpActionResult PostPosition(PositionDTO position)
         {
             if (!ModelState.IsValid)
@@ -71,7 +67,6 @@
         }
 
         [Route("positions/{id}")]
-        [ResponseType(typeof(PositionDTO))]
         public IHttpActionResult DeletePosition(int id)
         {
             if (!PositionExists(id))

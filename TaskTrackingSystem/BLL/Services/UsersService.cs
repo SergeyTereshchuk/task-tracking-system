@@ -1,5 +1,6 @@
 ﻿namespace TaskTrackingSystem.BLL.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.Security.Claims;
     using System.Threading.Tasks;
@@ -13,13 +14,11 @@
 
     public class UsersService : UserManager<ApplicationUser>, IUsersService
     {
-        private readonly IAuthUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public UsersService(IAuthUnitOfWork userUW, IMapper usersMapper)
             : base(userUW.Users)
         {
-            _unitOfWork = userUW;
             _mapper = usersMapper;
             PasswordValidator = ValidationConfig.GetPasswordConfig();
             UserValidator = ValidationConfig.GetUserConfig(this);
@@ -32,64 +31,59 @@
 
         async Task<IdentityResult> IUsersService.CreateAsync(string email, string password)
         {
-            var appUser = new ApplicationUser { Email = email, UserName = email };
-            var result = await base.CreateAsync(appUser, password);
+            IdentityResult result = await base.CreateAsync(new ApplicationUser { Email = email, UserName = email }, password);
+            ApplicationUser newUser = await base.FindByEmailAsync(email);
+            await base.AddToRoleAsync(newUser.Id, "user");
             return result;
         }
 
         async Task<ClaimsIdentity> IUsersService.CreateIdentityAsync(UserDTO user, string authType)
         {
-            var appUser = await base.FindByEmailAsync(user.Email);
-            var result = await base.CreateIdentityAsync(appUser, authType);
+            ApplicationUser appUser = await base.FindByEmailAsync(user.Email);
+            ClaimsIdentity result = await base.CreateIdentityAsync(appUser, authType);
             return result;
         }
 
-        async Task<IdentityResult> IUsersService.DeleteAsync(UserDTO user)
+        async Task<IdentityResult> IUsersService.DeleteAsync(string id)
         {
-            var result = await base.DeleteAsync(_mapper.Map<ApplicationUser>(user));
+            ApplicationUser user = await base.FindByIdAsync(id);
+            IdentityResult result = await base.DeleteAsync(user);
             return result;
         }
 
         async Task<UserDTO> IUsersService.FindAsync(string name, string password)
         {
-            var result = await base.FindAsync(name, password);
-            return _mapper.Map<UserDTO>(result);
+            return _mapper.Map<UserDTO>(await base.FindAsync(name, password));
         }
 
         async Task<UserDTO> IUsersService.FindByIdAsync(string userId)
         {
-            var result = await base.FindByIdAsync(userId);
-            return _mapper.Map<UserDTO>(result);
+            return _mapper.Map<UserDTO>(await base.FindByIdAsync(userId));
         }
 
         async Task<UserDTO> IUsersService.FindByEmailAsync(string userEmail)
         {
-            var result = await base.FindByEmailAsync(userEmail);
-            return _mapper.Map<UserDTO>(result);
+            return _mapper.Map<UserDTO>(await base.FindByEmailAsync(userEmail));
         }
 
         async Task<IdentityResult> IUsersService.UpdateAsync(UserDTO user)
         {
-            var result = await base.UpdateAsync(_mapper.Map<ApplicationUser>(user));
-            return result;
+            return await base.UpdateAsync(_mapper.Map<ApplicationUser>(user));
         }
 
         async Task<IList<string>> IUsersService.GetRolesAsync(string id)
         {
-            var result = await base.GetRolesAsync(id);
-            return result;
+            return await base.GetRolesAsync(id);
         }
 
         async Task<IdentityResult> IUsersService.AddToRolesAsync(string id, string[] roles)
         {
-            var result = await base.AddToRolesAsync(id, roles);
-            return result;
+            return await base.AddToRolesAsync(id, roles);
         }
 
         async Task<IdentityResult> IUsersService.RemoveFromRolesAsync(string id, string[] roles)
         {
-            var result = await base.RemoveFromRolesAsync(id, roles);
-            return result;
+            return await base.RemoveFromRolesAsync(id, roles);
         }
     }
 }

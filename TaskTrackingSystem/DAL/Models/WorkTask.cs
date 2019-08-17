@@ -9,8 +9,10 @@ namespace TaskTrackingSystem.DAL.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(50)]
         public string Subject { get; set; }
+
+        [Required]
+        public string Status { get; set; }
 
         public int IdProject { get; set; }
 

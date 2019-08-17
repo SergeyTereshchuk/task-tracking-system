@@ -57,7 +57,6 @@
   <ItemGroup>
     <Compile Include="DbContext\TaskTrackingSystemContext.cs" />
     <Compile Include="DbContext\TaskTrackingSystemDbInitializer.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\IAuthUnitOfWork.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IDataUnitOfWork.cs" />
@@ -74,13 +73,8 @@
     <Compile Include="UnitsOfWork\DataUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

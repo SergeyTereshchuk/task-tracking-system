@@ -9,7 +9,11 @@
 
         WorkTaskDTO GetWorkTaskById(int id);
 
-        WorkTaskDTO AddWorkTask(WorkTaskDTO newTask);
+        IEnumerable<WorkTaskDTO> GetWorkTasksByUserId(string id);
+
+        IEnumerable<WorkTaskDTO> GetWorkTasksByManagerId(string id);
+
+        WorkTaskDTO AddWorkTask(WorkTaskDTO newTask, string performerId);
 
         WorkTaskDTO RemoveWorkTask(int id);
 

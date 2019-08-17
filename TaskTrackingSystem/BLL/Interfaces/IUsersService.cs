@@ -14,7 +14,7 @@
 
         Task<ClaimsIdentity> CreateIdentityAsync(UserDTO user, string authType);
 
-        Task<IdentityResult> DeleteAsync(UserDTO user);
+        Task<IdentityResult> DeleteAsync(string id);
 
         Task<UserDTO> FindAsync(string name, string password);
 

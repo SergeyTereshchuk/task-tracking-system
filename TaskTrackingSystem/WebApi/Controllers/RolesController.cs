@@ -1,13 +1,10 @@
 ﻿namespace TaskTrackingSystem.WebApi.Controllers
 {
-    using Microsoft.AspNet.Identity;
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Net;
-    using System.Net.Http;
     using System.Threading.Tasks;
     using System.Web.Http;
+    using Microsoft.AspNet.Identity;
     using TaskTrackingSystem.BLL.Interfaces;
     using TaskTrackingSystem.WebApi.Models;
 
@@ -24,7 +21,7 @@
             _rolesService = rolesService;
         }
 
-        [Route("roles", Name = "GetAllRoles")]
+        [Route("roles")]
         public IHttpActionResult GetAllRoles()
         {
             return Ok(_rolesService.GetRoles());
@@ -67,7 +64,6 @@
         [Route("roles/{id:guid}")]
         public async Task<IHttpActionResult> DeleteRole(string id)
         {
-
             var role = await _rolesService.FindByIdAsync(id);
 
             if (role == null)
@@ -87,8 +83,13 @@
 
         [HttpPut]
         [Route("users/{id:guid}/roles")]
-        public async Task<IHttpActionResult> AssignRolesToUser([FromUri] string id, [FromBody] string[] newRoles)
+        public async Task<IHttpActionResult> AssignRolesToUser([FromUri] string id, [FromBody] AssignRolesModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var user = await _usersService.FindByIdAsync(id);
 
             if (user == null)
@@ -98,15 +99,15 @@
 
             var currentRoles = await _usersService.GetRolesAsync(user.Id);
 
-            var incorrectRoles = newRoles.Except(_rolesService.GetRoles().Select(x => x.Name)).ToArray();
+            var incorrectRoles = model.NewRoles.Except(_rolesService.GetRoles().Select(x => x.Name)).ToArray();
 
             if (incorrectRoles.Count() > 0)
             {
-                ModelState.AddModelError(string.Empty, $"Roles '{string.Join(",", incorrectRoles)}' does not exixts in the system");
+                ModelState.AddModelError(string.Empty, $"Roles '{string.Join(",", incorrectRoles)}' does not exist in the system");
                 return BadRequest(ModelState);
             }
 
-            var removeResult = await _usersService.RemoveFromRolesAsync(user.Id, currentRoles.ToArray());
+            IdentityResult removeResult = await _usersService.RemoveFromRolesAsync(user.Id, currentRoles.ToArray());
 
             if (!removeResult.Succeeded)
             {
@@ -114,7 +115,7 @@
                 return BadRequest(ModelState);
             }
 
-            var addResult = await _usersService.AddToRolesAsync(user.Id, newRoles);
+            IdentityResult addResult = await _usersService.AddToRolesAsync(user.Id, model.NewRoles);
 
             if (!addResult.Succeeded)
             {
@@ -122,7 +123,7 @@
                 return BadRequest(ModelState);
             }
 
-            return Ok($"Roles '{string.Join(",", newRoles)}' added to user {id}");
+            return Ok($"Roles '{string.Join(",", model.NewRoles)}' added to user {id}");
         }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)

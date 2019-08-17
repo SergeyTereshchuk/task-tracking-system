@@ -9,7 +9,9 @@
 
         ProjectDTO GetProjectById(int id);
 
-        ProjectDTO AddProject(ProjectDTO newProject);
+        IEnumerable<ProjectDTO> GetProjectsByUserId(string id);
+
+        ProjectDTO AddProject(ProjectDTO newProject, string creatorId);
 
         ProjectDTO RemoveProject(int id);
 

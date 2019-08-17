@@ -10,14 +10,12 @@
             var config = new PasswordValidator
             {
                 RequiredLength = 6,
-                RequireDigit = true,
-                RequireLowercase = true,
             };
 
             return config;
         }
 
-        public static UserValidator<ApplicationUser> GetUserConfig( UserManager<ApplicationUser> manager)
+        public static UserValidator<ApplicationUser> GetUserConfig(UserManager<ApplicationUser> manager)
         {
             var config = new UserValidator<ApplicationUser>(manager)
             {

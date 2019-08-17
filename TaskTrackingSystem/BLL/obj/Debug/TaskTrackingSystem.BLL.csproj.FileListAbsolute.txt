@@ -9,7 +9,6 @@ F:\EPAM\ExtGroup\Project\TaskTrackingSystem\BLL\bin\Debug\Microsoft.AspNet.Ident
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\BLL\bin\Debug\Microsoft.AspNet.Identity.Core.dll
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\BLL\bin\Debug\EntityFramework.dll
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\BLL\bin\Debug\DAL.pdb
-F:\EPAM\ExtGroup\Project\TaskTrackingSystem\BLL\bin\Debug\DAL.dll.config
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\BLL\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\BLL\bin\Debug\Microsoft.AspNet.Identity.Core.xml
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\BLL\bin\Debug\EntityFramework.xml
@@ -19,7 +18,6 @@ F:\EPAM\ExtGroup\Project\TaskTrackingSystem\BLL\bin\Debug\Ninject.xml
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\BLL\bin\Debug\AutoMapper.dll
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\BLL\bin\Debug\AutoMapper.pdb
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\BLL\bin\Debug\AutoMapper.xml
-F:\EPAM\ExtGroup\Project\TaskTrackingSystem\BLL\bin\Debug\TaskTrackingSystem.BLL.dll.config
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\BLL\bin\Debug\EntityFramework.SqlServer.dll
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\BLL\bin\Debug\Microsoft.AspNet.Identity.Owin.dll
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\BLL\bin\Debug\Microsoft.Owin.dll

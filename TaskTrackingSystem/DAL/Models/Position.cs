@@ -2,18 +2,18 @@ namespace TaskTrackingSystem.DAL.Models
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class Position
     {
-        [Required]
         public int Id { get; set; }
 
-        [Column(TypeName = "nvarchar")]
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         public string IdUser { get; set; }
 
+        [Required]
         public int IdProject { get; set; }
 
         public virtual ApplicationUser PositionUser { get; set; }

@@ -1,15 +1,8 @@
 ﻿namespace TaskTrackingSystem.BLL.DI
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using AutoMapper;
     using Ninject.Modules;
     using TaskTrackingSystem.BLL.Config;
-    using TaskTrackingSystem.BLL.DTO;
-    using TaskTrackingSystem.DAL.Models;
 
     public class AutoMapperModule : NinjectModule
     {

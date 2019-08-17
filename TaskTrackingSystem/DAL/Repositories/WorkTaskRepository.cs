@@ -16,7 +16,7 @@
 
         private TaskTrackingSystemContext Db { get; set; }
 
-        IQueryable<WorkTask> IRepository<WorkTask>.GetAll()
+        IEnumerable<WorkTask> IRepository<WorkTask>.GetAll()
         {
             return Db.WorkTasks;
         }
@@ -33,9 +33,11 @@
 
         WorkTask IRepository<WorkTask>.Update(WorkTask item)
         {
-            var oldItem = Db.WorkTasks.Find(item.Id);
+            WorkTask oldItem = Db.WorkTasks.Find(item.Id);
+            oldItem.Status = item.Status;
+            oldItem.EndDate = item.EndDate;
+            oldItem.Description = item.Description;
 
-            Db.Entry(oldItem).CurrentValues.SetValues(item);
             Db.SaveChanges();
             return oldItem;
         }
@@ -47,7 +49,7 @@
 
         IEnumerable<WorkTask> IRepository<WorkTask>.Filter(Func<WorkTask, bool> predicate)
         {
-            return Db.WorkTasks.Where(predicate);
+            return Db.WorkTasks.Where(predicate).ToList();
         }
     }
 }

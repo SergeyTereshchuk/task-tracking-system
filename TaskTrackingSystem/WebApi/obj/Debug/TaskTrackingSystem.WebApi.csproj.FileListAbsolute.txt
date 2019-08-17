@@ -82,7 +82,6 @@ F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\System.Web.WebPages.Razor
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\Antlr3.Runtime.pdb
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\DAL.pdb
-F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\DAL.dll.config
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\Microsoft.AspNet.Identity.EntityFramework.xml
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\Microsoft.AspNet.Identity.Core.xml
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\EntityFramework.xml
@@ -113,7 +112,6 @@ F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\Microsoft.Owin.Security.C
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\Microsoft.Owin.Security.dll
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\Microsoft.Owin.Security.OAuth.dll
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\Owin.dll
-F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\TaskTrackingSystem.BLL.dll.config
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\Microsoft.AspNet.Identity.Owin.xml
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\Microsoft.Owin.xml
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\Microsoft.Owin.Security.xml
@@ -124,3 +122,10 @@ F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\System.Web.Http.Cors.dll
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\System.Web.Http.Cors.xml
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\Microsoft.Owin.Host.SystemWeb.dll
 F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\Microsoft.Owin.Host.SystemWeb.xml
+F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\Microsoft.Owin.Cors.dll
+F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\Microsoft.Owin.Cors.xml
+F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\BouncyCastle.Crypto.dll
+F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\MailKit.dll
+F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\MimeKit.dll
+F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\MailKit.xml
+F:\EPAM\ExtGroup\Project\TaskTrackingSystem\WebApi\bin\MimeKit.xml

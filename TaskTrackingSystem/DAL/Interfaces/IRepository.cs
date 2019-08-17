@@ -2,12 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
 
     public interface IRepository<T>
         where T : class
     {
-        IQueryable<T> GetAll();
+        IEnumerable<T> GetAll();
 
         T Get(int id);
 

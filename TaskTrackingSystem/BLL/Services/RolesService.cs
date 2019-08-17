@@ -11,13 +11,11 @@
 
     public class RolesService : RoleManager<IdentityRole>, IRolesService
     {
-        private readonly IAuthUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public RolesService(IAuthUnitOfWork roleUW, IMapper rolesMapper)
             : base(roleUW.Roles)
         {
-            _unitOfWork = roleUW;
             _mapper = rolesMapper;
         }
 
@@ -28,33 +26,27 @@
 
         async Task<IdentityResult> IRolesService.CreateAsync(string name)
         {
-            var appRole = new IdentityRole { Name = name };
-            var result = await base.CreateAsync(appRole);
-            return result;
+            return await base.CreateAsync(new IdentityRole { Name = name });
         }
 
         async Task<IdentityResult> IRolesService.DeleteAsync(RoleDTO role)
         {
-            var result = await base.DeleteAsync(_mapper.Map<IdentityRole>(role));
-            return result;
+            return await base.DeleteAsync(_mapper.Map<IdentityRole>(role)); ;
         }
 
         async Task<RoleDTO> IRolesService.FindByIdAsync(string roleId)
         {
-            var result = await base.FindByIdAsync(roleId);
-            return _mapper.Map<RoleDTO>(result);
+            return _mapper.Map<RoleDTO>(await base.FindByIdAsync(roleId));
         }
 
         async Task<RoleDTO> IRolesService.FindByNameAsync(string name)
         {
-            var result = await base.FindByNameAsync(name);
-            return _mapper.Map<RoleDTO>(result);
+            return _mapper.Map<RoleDTO>(await base.FindByNameAsync(name));
         }
 
         async Task<IdentityResult> IRolesService.UpdateAsync(RoleDTO role)
         {
-            var result = await base.UpdateAsync(_mapper.Map<IdentityRole>(role));
-            return result;
+            return await base.UpdateAsync(_mapper.Map<IdentityRole>(role));
         }
     }
 }

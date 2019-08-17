@@ -89,7 +89,6 @@
     <Compile Include="DTO\RoleDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="DTO\WorkTaskDTO.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\IPositionsService.cs" />
     <Compile Include="Interfaces\IProjectsService.cs" />
     <Compile Include="Interfaces\IRolesService.cs" />
@@ -105,12 +104,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\TaskTrackingSystem.DAL.csproj">

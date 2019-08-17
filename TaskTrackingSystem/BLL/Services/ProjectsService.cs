@@ -1,6 +1,8 @@
 ﻿namespace TaskTrackingSystem.BLL.Services
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using AutoMapper;
     using TaskTrackingSystem.BLL.DTO;
     using TaskTrackingSystem.BLL.Interfaces;
@@ -28,23 +30,37 @@
             return _mapper.Map<ProjectDTO>(_unitOfWork.Projects.Get(id));
         }
 
-        ProjectDTO IProjectsService.AddProject(ProjectDTO newProject)
+        IEnumerable<ProjectDTO> IProjectsService.GetProjectsByUserId(string id)
         {
-            var addedProject = _unitOfWork.Projects.Create(_mapper.Map<Project>(newProject));
+            IEnumerable<Position> userPositions = _unitOfWork.Positions.Filter(p => p.IdUser == id);
+            IEnumerable<int> userProjectIds = userPositions.Select(p => p.IdProject);
+            return _mapper.Map<IEnumerable<ProjectDTO>>(_unitOfWork.Projects.Filter(p => userProjectIds.Contains(p.Id)));
+        }
+
+        ProjectDTO IProjectsService.AddProject(ProjectDTO newProject, string creatorId)
+        {
+            var projectToAdd = _mapper.Map<Project>(newProject);
+            projectToAdd.StartDate = DateTime.Now;
+
+            Project addedProject = _unitOfWork.Projects.Create(projectToAdd);
             _unitOfWork.Save();
+
+            _unitOfWork.Positions.Create(new Position { IdProject = addedProject.Id, IdUser = creatorId, Name = "creator" });
+            _unitOfWork.Save();
+
             return _mapper.Map<ProjectDTO>(addedProject);
         }
 
         ProjectDTO IProjectsService.RemoveProject(int id)
         {
-            var removedProject = _unitOfWork.Projects.Delete(id);
+            Project removedProject = _unitOfWork.Projects.Delete(id);
             _unitOfWork.Save();
             return _mapper.Map<ProjectDTO>(removedProject);
         }
 
         ProjectDTO IProjectsService.UpdateProject(ProjectDTO newProject)
         {
-            var updatedProject = _unitOfWork.Projects.Update(_mapper.Map<Project>(newProject));
+            Project updatedProject = _unitOfWork.Projects.Update(_mapper.Map<Project>(newProject));
             _unitOfWork.Save();
             return _mapper.Map<ProjectDTO>(updatedProject);
         }

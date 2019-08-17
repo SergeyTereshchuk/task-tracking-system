@@ -1,12 +1,10 @@
 ﻿namespace TaskTrackingSystem.WebApi.Controllers
 {
-    using System;
-    using System.Security.Claims;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
-    using System.Web;
     using System.Web.Http;
     using Microsoft.AspNet.Identity;
-    using Microsoft.Owin.Security;
+    using TaskTrackingSystem.BLL.DTO;
     using TaskTrackingSystem.BLL.Interfaces;
     using TaskTrackingSystem.WebApi.Models;
 
@@ -21,10 +19,19 @@
             _service = usersService;
         }
 
+        [OverrideAuthorization]
+        [Authorize(Roles = "admin,manager")]
         [Route("users")]
-        public IHttpActionResult GetUsers()
+        public async Task<IHttpActionResult> GetUsers()
         {
-            return Ok(_service.GetUsers());
+            var usersInfo = new List<InfoUserModel>();
+            foreach (var user in _service.GetUsers())
+            {
+                var userRoles = await _service.GetRolesAsync(user.Id);
+                usersInfo.Add(GetInfoUserModel(user, userRoles));
+            }
+
+            return Ok(usersInfo);
         }
 
         [Route("users/{id:guid}", Name = "GetUser")]
@@ -37,20 +44,23 @@
                 return NotFound();
             }
 
-            return Ok(user);
+            var userRoles = await _service.GetRolesAsync(user.Id);
+
+            return Ok(GetInfoUserModel(user, userRoles));
+        }
+
+        [OverrideAuthorization]
+        [Authorize]
+        [Route("user")]
+        public async Task<IHttpActionResult> GetCurrentUser()
+        {
+            return await GetUser(RequestContext.Principal.Identity.GetUserId());
         }
 
         [Route("users/{id:guid}")]
         public async Task<IHttpActionResult> DeleteUser(string id)
         {
-            var appUser = await _service.FindByIdAsync(id);
-
-            if (appUser == null)
-            {
-                return NotFound();
-            }
-
-            var result = await _service.DeleteAsync(appUser);
+            IdentityResult result = await _service.DeleteAsync(id);
 
             if (!result.Succeeded)
             {
@@ -82,6 +92,17 @@
             return CreatedAtRoute("GetUser", new { id = newUser.Id }, newUser);
         }
 
+        private InfoUserModel GetInfoUserModel(UserDTO user, IList<string> roles)
+        {
+            var rolesString = string.Join(", ", roles);
+            return new InfoUserModel
+            {
+                Id = user.Id,
+                Email = user.Email,
+                Role = rolesString,
+            };
+        }
+
         private IHttpActionResult GetErrorResult(IdentityResult result)
         {
             if (result == null)
@@ -95,7 +116,7 @@
                 {
                     foreach (var error in result.Errors)
                     {
-                        ModelState.AddModelError(String.Empty, error);
+                        ModelState.AddModelError(string.Empty, error);
                     }
                 }
 

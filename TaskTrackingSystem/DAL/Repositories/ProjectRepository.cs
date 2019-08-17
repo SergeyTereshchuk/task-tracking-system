@@ -16,7 +16,7 @@
 
         private TaskTrackingSystemContext Db { get; set; }
 
-        IQueryable<Project> IRepository<Project>.GetAll()
+        IEnumerable<Project> IRepository<Project>.GetAll()
         {
             return Db.Projects;
         }
@@ -33,7 +33,8 @@
 
         Project IRepository<Project>.Update(Project item)
         {
-            var oldItem = Db.Projects.Find(item.Id);
+            Project oldItem = Db.Projects.Find(item.Id);
+            item.StartDate = oldItem.StartDate;
 
             Db.Entry(oldItem).CurrentValues.SetValues(item);
             Db.SaveChanges();
@@ -47,7 +48,7 @@
 
         IEnumerable<Project> IRepository<Project>.Filter(Func<Project, bool> predicate)
         {
-            return Db.Projects.Where(predicate);
+            return Db.Projects.Where(predicate).ToList();
         }
     }
 }

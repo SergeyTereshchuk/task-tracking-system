@@ -1,15 +1,11 @@
-﻿using Microsoft.Owin.Security.OAuth;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web;
-using TaskTrackingSystem.BLL.DTO;
-using TaskTrackingSystem.BLL.Interfaces;
-
-namespace TaskTrackingSystem.WebApi.Providers
+﻿namespace TaskTrackingSystem.WebApi.Providers
 {
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+    using Microsoft.Owin.Security.OAuth;
+    using TaskTrackingSystem.BLL.DTO;
+    using TaskTrackingSystem.BLL.Interfaces;
+
     public class AuthProvider : OAuthAuthorizationServerProvider
     {
         private readonly IUsersService _service;
@@ -26,8 +22,6 @@ namespace TaskTrackingSystem.WebApi.Providers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
-
             UserDTO user = await _service.FindAsync(context.UserName, context.Password);
 
             if (user == null)
@@ -37,9 +31,6 @@ namespace TaskTrackingSystem.WebApi.Providers
             }
 
             ClaimsIdentity identity = await _service.CreateIdentityAsync(user, context.Options.AuthenticationType);
-            //var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-            //identity.AddClaim(new Claim("sub", context.UserName));
-            //identity.AddClaim(new Claim("role", "user"));
 
             context.Validated(identity);
         }

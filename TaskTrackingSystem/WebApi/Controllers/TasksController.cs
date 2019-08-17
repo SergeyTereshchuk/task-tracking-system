@@ -1,12 +1,12 @@
 ﻿namespace TaskTrackingSystem.WebApi.Controllers
 {
-    using System.Collections.Generic;
     using System.Web.Http;
     using System.Web.Http.Description;
+    using Microsoft.AspNet.Identity;
     using TaskTrackingSystem.BLL.DTO;
     using TaskTrackingSystem.BLL.Interfaces;
 
-    [Authorize]
+    [Authorize(Roles = "admin,manager")]
     [RoutePrefix("api")]
     public class TasksController : ApiController
     {
@@ -36,6 +36,20 @@
             return Ok(workTask);
         }
 
+        [Route("user/tasks")]
+        [OverrideAuthorization]
+        [Authorize]
+        public IHttpActionResult GetUserTasks()
+        {
+            return Ok(_service.GetWorkTasksByUserId(RequestContext.Principal.Identity.GetUserId()));
+        }
+
+        [Route("user/projects/tasks")]
+        public IHttpActionResult GetUserManagedTasks()
+        {
+            return Ok(_service.GetWorkTasksByManagerId(RequestContext.Principal.Identity.GetUserId()));
+        }
+
         [Route("tasks")]
         [ResponseType(typeof(WorkTaskDTO))]
         public IHttpActionResult PutWorkTask(WorkTaskDTO workTask)
@@ -53,9 +67,9 @@
             return Ok(_service.UpdateWorkTask(workTask));
         }
 
-        [Route("tasks")]
+        [Route("users/{id:guid}/tasks")]
         [ResponseType(typeof(WorkTaskDTO))]
-        public IHttpActionResult PostWorkTask(WorkTaskDTO workTask)
+        public IHttpActionResult PostWorkTask([FromUri] string id, [FromBody] WorkTaskDTO workTask)
         {
             if (!ModelState.IsValid)
             {
@@ -67,7 +81,7 @@
                 return BadRequest("Order exists");
             }
 
-            return CreatedAtRoute("GetWorkTask", new { id = workTask.Id }, _service.AddWorkTask(workTask));
+            return CreatedAtRoute("GetWorkTask", new { id = workTask.Id }, _service.AddWorkTask(workTask, id));
         }
 
         [Route("tasks/{id}")]

@@ -16,7 +16,7 @@
 
         private TaskTrackingSystemContext Db { get; set; }
 
-        IQueryable<Position> IRepository<Position>.GetAll()
+        IEnumerable<Position> IRepository<Position>.GetAll()
         {
             return Db.Positions;
         }
@@ -33,7 +33,7 @@
 
         Position IRepository<Position>.Update(Position item)
         {
-            var oldItem = Db.Positions.Find(item.Id);
+            Position oldItem = Db.Positions.Find(item.Id);
 
             Db.Entry(oldItem).CurrentValues.SetValues(item);
             Db.SaveChanges();
@@ -47,7 +47,7 @@
 
         IEnumerable<Position> IRepository<Position>.Filter(Func<Position, bool> predicate)
         {
-            return Db.Positions.Where(predicate);
+            return Db.Positions.Where(predicate).ToList();
         }
     }
 }

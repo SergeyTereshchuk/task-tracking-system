@@ -1,12 +1,11 @@
 ﻿namespace TaskTrackingSystem.WebApi.Controllers
 {
-    using System.Collections.Generic;
     using System.Web.Http;
-    using System.Web.Http.Description;
+    using Microsoft.AspNet.Identity;
     using TaskTrackingSystem.BLL.DTO;
     using TaskTrackingSystem.BLL.Interfaces;
 
-    [Authorize]
+    [Authorize(Roles = "admin,manager")]
     [RoutePrefix("api")]
     public class ProjectsController : ApiController
     {
@@ -24,7 +23,6 @@
         }
 
         [Route("projects/{id}", Name = "GetProject")]
-        [ResponseType(typeof(ProjectDTO))]
         public IHttpActionResult GetProject(int id)
         {
             ProjectDTO project = _service.GetProjectById(id);
@@ -36,8 +34,15 @@
             return Ok(project);
         }
 
+        [Route("user/projects")]
+        [OverrideAuthorization]
+        [Authorize]
+        public IHttpActionResult GetUserProjects()
+        {
+            return Ok(_service.GetProjectsByUserId(RequestContext.Principal.Identity.GetUserId()));
+        }
+
         [Route("projects")]
-        [ResponseType(typeof(ProjectDTO))]
         public IHttpActionResult PutProject(ProjectDTO project)
         {
             if (!ModelState.IsValid)
@@ -54,7 +59,6 @@
         }
 
         [Route("projects")]
-        [ResponseType(typeof(ProjectDTO))]
         public IHttpActionResult PostProject(ProjectDTO project)
         {
             if (!ModelState.IsValid)
@@ -64,14 +68,13 @@
 
             if (ProjectExists(project.Id))
             {
-                return BadRequest("Order exists");
+                return BadRequest("Project exists");
             }
 
-            return CreatedAtRoute("GetProject", new { id = project.Id }, _service.AddProject(project));
+            return CreatedAtRoute("GetProject", new { id = project.Id }, _service.AddProject(project, RequestContext.Principal.Identity.GetUserId()));
         }
 
         [Route("projects/{id}")]
-        [ResponseType(typeof(ProjectDTO))]
         public IHttpActionResult DeleteProject(int id)
         {
             if (!ProjectExists(id))
